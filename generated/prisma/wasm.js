@@ -110,7 +110,14 @@ Prisma.NullTypes = {
  * Enums
  */
 
-exports.Prisma.UserScalarFieldEnum = {
+exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
+  ReadUncommitted: 'ReadUncommitted',
+  ReadCommitted: 'ReadCommitted',
+  RepeatableRead: 'RepeatableRead',
+  Serializable: 'Serializable'
+});
+
+exports.Prisma.ClientsScalarFieldEnum = {
   id: 'id',
   name: 'name',
   email: 'email',
@@ -122,14 +129,15 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
-exports.Prisma.QueryMode = {
-  default: 'default',
-  insensitive: 'insensitive'
+exports.Prisma.ClientsOrderByRelevanceFieldEnum = {
+  name: 'name',
+  email: 'email',
+  password: 'password'
 };
 
 
 exports.Prisma.ModelName = {
-  User: 'User'
+  Clients: 'Clients'
 };
 
 /**

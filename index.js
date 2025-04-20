@@ -1,31 +1,20 @@
 import express from 'express';
-import { PrismaClient } from '@prisma/client';
+import publicRoutes from './routes/public.js';
+import privateRoutes from './routes/private.js';
+import auth from './middlewares/auth.js';
+import cors from 'cors';
 
-const prisma = new PrismaClient()
+
+
 const app = express();
 app.use(express.json());// Avisar a aplicação que vou usar JSON
-const users =[]
+app.use(cors());// Avisar a aplicação que vou usar CORS
 
-app.post('/usuarios', async (req, res) => {
+app.use('/', publicRoutes);
 
-  await prisma.user.create({
-    data: {
-      name: req.body.name,
-      email: req.body.email,
-      password: req.body.password
-    }
-  });
-
-  res.status(201).json(req.body);
-});
-
-app.get('/usuarios', (req, res) => {
-
-  res.status(200).json(users);
-});
-
+app.use('/', auth, privateRoutes);
 app.listen(3000, () => {
-  console.log(`Server is running at http://localhost:3000`);
+  console.log(`Servidor ligado`);
 });
 
 /*
